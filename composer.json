@@ -1,0 +1,7 @@
+{
+    "require": {
+        "symfony/dom-crawler": "^4.2",
+        "symfony/css-selector": "^4.2",
+        "suin/php-rss-writer": "^1.6"
+    }
+}
