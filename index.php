@@ -11,8 +11,7 @@ $wwq = file_get_contents('https://radioplay.fi/podcast/kimanttia/');
 
 $crawler = new Crawler($wwq);
 
-$crawler = $crawler->filter('#play_history_list > ul > li > div.recently-played-track > a');
-
+$crawler = $crawler->filter('#play_history_list > ul > li > div.recently-played-track');
 
 $feed = new Feed();
 
@@ -23,13 +22,23 @@ $channel
 
 
 foreach ($crawler as $domElement) {
-    $title = $domElement->textContent;
-    $url = 'https://radioplay.fi' . $domElement->getAttribute('href');
+    $link = $domElement->getElementsByTagName('a')[0];
+
+    $title = $link->textContent;
+    $url = 'https://radioplay.fi' . $link->getAttribute('href');
+
+    $stuff = $domElement->getElementsByTagName('span')[0];
+    [$lengthDate, $description] = explode("\n", $stuff->textContent);
+    [$length, $date] = explode(' • ', $lengthDate);
+
+    $description = trim($description);
 
     $item = new Item();
     $item
         ->title($title)
         ->url($url)
+        ->description($description)
+        ->pubDate((new \DateTime($date))->getTimestamp())
         ->appendTo($channel);
 }
 
