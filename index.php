@@ -7,10 +7,7 @@ use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 use Symfony\Component\DomCrawler\Crawler;
 
-$wwq = file_get_contents('https://radioplay.fi/podcast/kimanttia/');
-
-$crawler = new Crawler($wwq);
-
+$crawler = new Crawler(file_get_contents('https://radioplay.fi/podcast/kimanttia/'));
 $crawler = $crawler->filter('#play_history_list > ul > li > div.recently-played-track');
 
 $feed = new Feed();
@@ -19,7 +16,6 @@ $channel = new Channel();
 $channel
     ->title('Kimanttia')
     ->appendTo($feed);
-
 
 foreach ($crawler as $domElement) {
     $link = $domElement->getElementsByTagName('a')[0];
