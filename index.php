@@ -15,6 +15,7 @@ $feed = new Feed();
 $channel = new Channel();
 $channel
     ->title('Kimanttia')
+    ->description('Kimanttia on Viasatin NHL-selostaja Antti Mäkisen ja Viasatin NHL-asiantuntija sekä Stanley Cup -voittaja Kimmo Timosen podcast maailman parhaasta jääkiekkosarjasta. Uusi jakso torstaisin.')
     ->appendTo($feed);
 
 foreach ($crawler as $domElement) {
