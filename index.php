@@ -24,7 +24,7 @@ $channel
 
 foreach ($crawler as $domElement) {
     $title = $domElement->textContent;
-    $url = 'https://radioplay.fi/' . $domElement->getAttribute('href');
+    $url = 'https://radioplay.fi' . $domElement->getAttribute('href');
 
     $item = new Item();
     $item
@@ -32,5 +32,7 @@ foreach ($crawler as $domElement) {
         ->url($url)
         ->appendTo($channel);
 }
+
+header('Content-Type: application/xml; charset=utf-8');
 
 echo $feed->render();
